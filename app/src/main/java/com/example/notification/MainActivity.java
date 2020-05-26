@@ -142,16 +142,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.d("current: ", System.currentTimeMillis() + "");
                 Log.d("timeURC: ", alarmTimeAtUTC + "");
                 long intervalTime = 10 * 1000;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//
+//                    if (repeat.equals("yes")) {
+//                        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+//                                alarmTimeAtUTC,
+//                                intervalTime, pendingIntent);
+//                    } else {
+//                        alarmManager.setExactAndAllowWhileIdle(alarmManager.RTC_WAKEUP, alarmTimeAtUTC, pendingIntent);
+//                    }
+//                }
 
-                    if (repeat.equals("yes")) {
-                        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                                alarmTimeAtUTC,
-                                intervalTime, pendingIntent);
-                    } else {
-                        alarmManager.setExactAndAllowWhileIdle(alarmManager.RTC_WAKEUP, alarmTimeAtUTC, pendingIntent);
-                    }
-                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(alarmTimeAtUTC, pendingIntent), pendingIntent);
+                else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                    alarmManager.setExact(AlarmManager.RTC, alarmTimeAtUTC, pendingIntent);
+                else
+                    alarmManager.set(AlarmManager.RTC, alarmTimeAtUTC, pendingIntent);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }

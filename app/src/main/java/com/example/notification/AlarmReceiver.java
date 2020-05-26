@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 
-public class AlarmReceiver extends BroadcastReceiver {
+public class AlarmReceiver extends BroadcastReceiver  {
 
     private static final String CHANNEL_ID = "simlified_coding";
     private static final String CHANNEL_NAME = "Simlified_Coding";
